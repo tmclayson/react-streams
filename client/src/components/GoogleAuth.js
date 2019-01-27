@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
+import { Component } from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { Button, Icon } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { signIn, signOut } from '../actions'
 // google tries to keep this library as small as possible, so the actual functions we require
 // need to be loaded in a follow up request.
 // the scope property is a list of the resources/data we want access to.
-export default class GoogleAuth extends Component {
+class GoogleAuth extends Component {
   // we don't know initially whether the user is signed in or not.
-  state = { isSignedIn: null };
+  // state = { isSignedIn: null };
 
   componentDidMount = () => {
     window.gapi.load('client:auth2', () => {
@@ -15,14 +19,22 @@ export default class GoogleAuth extends Component {
         scope: 'email'
       }).then(() => {
         this.auth = window.gapi.auth2.getAuthInstance();
-        this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+        // updates the authentication status in the redux store
+        this.onAuthChange(this.auth.isSignedIn.get());
+        // this.setState({ isSignedIn: this.auth.isSignedIn.get() });
+        // listen() passes true to the function passed as a listener when the user signs in, and false when the user signs out.
         this.auth.isSignedIn.listen(this.onAuthChange);
       });
     });
   }
 
-  onAuthChange = () => {
-    this.setState({ isSignedIn: this.auth.isSignedIn.get() })
+  onAuthChange = (isSignedIn) => {
+    // calls the action creators
+    if (isSignedIn) {
+      this.props.signIn(this.auth.currentUser.get().getId());
+    } else {
+      this.props.signOut();
+    }
   }
 
   // these helper methods aren't strictly necessary, but can make the code clearer
@@ -36,11 +48,11 @@ export default class GoogleAuth extends Component {
 
 
   renderAuthButton() {
-    if (this.state.isSignedIn === null) {
+    if (this.props.isSignedIn === null) {
       return (
         null
       );
-    } else if (this.state.isSignedIn) {
+    } else if (this.props.isSignedIn) {
       return (
         <Button color='red' onClick={ this.onSignOutClick }>
           <Icon name='google' /> Sign Out
@@ -57,9 +69,21 @@ export default class GoogleAuth extends Component {
 
   render() {
     return (
-      <div>
+      <div css={ { paddingTop: '3px' } }>
         { this.renderAuthButton() }
       </div>
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isSignedIn: state.auth.isSignedIn
+  };
+};
+
+
+export default connect(mapStateToProps, {
+  signIn,
+  signOut
+})(GoogleAuth)

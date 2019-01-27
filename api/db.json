@@ -1,0 +1,36 @@
+{
+  "streams": [
+    {
+      "title": "Testy",
+      "description": "McTestFace",
+      "id": 1
+    },
+    {
+      "title": "Testy Returns",
+      "description": "McTestFace the sequel",
+      "id": 2
+    },
+    {
+      "title": "Testy's Revenge",
+      "description": "McTestFace is back and he's mad",
+      "id": 3
+    },
+    {
+      "title": "Testy RIP",
+      "description": "McTestFace gets testicular cancer",
+      "id": 4
+    },
+    {
+      "title": "A Stream",
+      "description": "With an Id!",
+      "userId": "102273403429770644003",
+      "id": 5
+    },
+    {
+      "title": "Life is unexpected",
+      "description": "Yet I expected it to be...",
+      "userId": "102273403429770644003",
+      "id": 6
+    }
+  ]
+}

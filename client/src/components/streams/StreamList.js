@@ -18,7 +18,10 @@ class StreamList extends React.Component {
       return (
         <Item.Content>
 
-          <Button negative floated='right' css={ { marginLeft: '0.5em !important' } }>Delete</Button>
+          <Link to={ `streams/delete/${ stream.id }` }>
+            <Button negative floated='right' css={ { marginLeft: '0.5em !important' } }>Delete</Button>
+          </Link>
+
           <Link to={ `streams/edit/${ stream.id }` }>
             <Button primary floated='right'>Edit</Button>
           </Link>

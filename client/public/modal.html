@@ -1,0 +1,63 @@
+<head>
+  <style>
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      /* 100vh makes it span the entire vertical heigh of the screen */
+      height: 100vh;
+      width: 300px;
+      background-color: green;
+      z-index: 0;
+    }
+
+    .content {
+      margin-left: 300px;
+    }
+
+    .modal-body {
+      background-color: white;
+      margin: auto;
+      height: 30%;
+      width: 30%;
+    }
+
+    .modal {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      background-color: grey;
+      left: 0;
+      top: 0;
+      /* z-index controls the priority for this element to be displayed on top of the screen
+         will display the modal on top of the sidebar */
+      z-index: 10;
+    }
+
+    .positioned {
+      position: relative;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!--
+    if a parent element is set as relative, all child elements are positioned, relative to it (the parent)
+    this creates a stacking context. The z-index of elements outside this parent element as compared against
+    it, not the child elements. Portals allow us to render elements as the child of some other element on the page
+    to avoid problems of css conflicts in deeply nested components.
+  -->
+  <div class="positioned">
+    <!-- the outer div serves as the grey background to obscure the page behind -->
+    <div class="modal">
+      <div class="modal-body">
+        <h1>I am a modal</h1>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar">I am a sidebar</div>
+  <div class="content">
+    <h1>I am some content!</h1>
+  </div>
+</body>

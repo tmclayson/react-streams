@@ -1,7 +1,11 @@
+import _ from 'lodash';
 import React from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import { connect } from 'react-redux';
-import { fetchStream } from '../../actions'
-import { Item } from 'semantic-ui-react'
+import { fetchStream, editStream } from '../../actions';
+import StreamForm from './StreamForm';
+// import { Item } from 'semantic-ui-react';
 
 class StreamEdit extends React.Component {
   // a user may arrive in our application using a direct route.
@@ -13,6 +17,14 @@ class StreamEdit extends React.Component {
     this.props.fetchStream(this.props.match.params.id);
   }
 
+  onSubmit = (formValues) => {
+    this.props.editStream(this.props.match.params.id, formValues);
+  };
+
+  // the stream object has properties than match the name of the fields in the form, so we
+  // can initialise the form in that way. However, if we do this, we also initialise the
+  // userId and stream id, which are then resubmitted. This makes it seems like these
+  // have also been updated. This is misleading however.
   render() {
     if (!this.props.stream) {
       return (
@@ -20,10 +32,9 @@ class StreamEdit extends React.Component {
       );
     }
     return (
-      <div>
-        <Item>
-          <Item.Header>{ this.props.stream.title }</Item.Header>
-        </Item>
+      <div css={ { width: '80%', margin: 'auto' } }>
+        <h3>Edit a Stream</h3>
+        <StreamForm initialValues={ _.pick(this.props.stream, 'title', 'description') } onSubmit={ this.onSubmit } />
       </div>
     )
   }
@@ -38,6 +49,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 export default connect(mapStateToProps, {
-  fetchStream
+  fetchStream,
+  editStream
 })(StreamEdit);
 

@@ -45,7 +45,7 @@ class StreamForm extends React.Component {
     // need to add the "error" class to the form  due to semantic ui hiding messages inside forms by default.
     return (
       <div>
-        <Form className="error" css={ { width: '80%', margin: 'auto' } } onSubmit={ this.props.handleSubmit(this.onSubmit) }>
+        <Form className="error" onSubmit={ this.props.handleSubmit(this.onSubmit) }>
           <Form.Field>
             <Field name="title" component={ this.renderInput } label="Enter Title" />
           </Form.Field>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Button, List, Item, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import { fetchStreams } from '../../actions'
+import styles from './StreamStyles';
 
 class StreamList extends React.Component {
   // arrow function binds this to component instance
@@ -36,11 +37,14 @@ class StreamList extends React.Component {
     // appear on the same line.
     return this.props.streams.map(stream => {
       return (
-        <Item key={ stream.id } verticalAlign='middle'>
+        <Item key={ stream.id }>
           { this.renderAdmin(stream) }
           <Icon name="camera" size="large" />
           <Item.Content>
-            { stream.title }
+            <Link to={ `streams/${ stream.id }` }>
+              { stream.title }
+            </Link>
+
             <Item.Description>
               { stream.description }
             </Item.Description>
@@ -67,7 +71,7 @@ class StreamList extends React.Component {
 
   render() {
     return (
-      <div css={ { width: '80%', margin: 'auto' } }>
+      <div css={ styles.container }>
         <h2>
           Streams
         </h2>

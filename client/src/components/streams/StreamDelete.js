@@ -5,6 +5,7 @@ import history from '../../history';
 import { connect } from 'react-redux';
 import { fetchStream, deleteStream } from '../../actions';
 import { Link } from 'react-router-dom';
+// import styles from './StreamStyles';
 // import PropTypes from 'prop-types'
 
 class StreamDelete extends React.Component {

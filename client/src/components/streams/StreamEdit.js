@@ -5,6 +5,7 @@ import { jsx } from '@emotion/core'
 import { connect } from 'react-redux';
 import { fetchStream, editStream } from '../../actions';
 import StreamForm from './StreamForm';
+import styles from './StreamStyles';
 // import { Item } from 'semantic-ui-react';
 
 class StreamEdit extends React.Component {
@@ -32,7 +33,7 @@ class StreamEdit extends React.Component {
       );
     }
     return (
-      <div css={ { width: '80%', margin: 'auto' } }>
+      <div css={ styles.container }>
         <h3>Edit a Stream</h3>
         <StreamForm initialValues={ _.pick(this.props.stream, 'title', 'description') } onSubmit={ this.onSubmit } />
       </div>

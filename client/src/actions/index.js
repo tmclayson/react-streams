@@ -36,7 +36,7 @@ export const fetchStreams = () => async dispatch => {
 // GET request - ONE stream
 export const fetchStream = (id) => async dispatch => {
   const response = await streams.get(`/streams/${ id }`);
-  console.log('Stream Fetched: ' + response.data);
+  // console.log('Stream Fetched: ' + response.data);
   dispatch({ type: FETCH_STREAM, payload: response.data });
 };
 // a PUT request updates ALL properties of a record - so any that are blank will be overwritten - as blank

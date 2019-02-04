@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import StreamCreate from './streams/StreamCreate';
 import StreamEdit from './streams/StreamEdit';
 import StreamDelete from './streams/StreamDelete';
@@ -14,17 +14,20 @@ import history from '../history';
 // we instead use the Link component. Although this display an anchor tag on the page, react-router
 // will stop the browser navigating to the new page. The url still changes, and history sends it to Router
 // Router communicates the URL to Route components. Route components rerender
+// by wrapping the Routes in the Switch component, only the first route that matches will display.
 const App = () => {
   return (
     <>
       <Router history={ history }>
         <div>
           <Header />
-          <Route path="/" exact component={ StreamList } />
-          <Route path="/streams/new" exact component={ StreamCreate } />
-          <Route path="/streams/edit/:id" exact component={ StreamEdit } />
-          <Route path="/streams/delete/:id" exact component={ StreamDelete } />
-          <Route path="/streams/show" exact component={ StreamShow } />
+          <Switch>
+            <Route path="/" exact component={ StreamList } />
+            <Route path="/streams/new" exact component={ StreamCreate } />
+            <Route path="/streams/edit/:id" exact component={ StreamEdit } />
+            <Route path="/streams/delete/:id" exact component={ StreamDelete } />
+            <Route path="/streams/:id" exact component={ StreamShow } />
+          </Switch>
         </div>
       </Router>
     </>
